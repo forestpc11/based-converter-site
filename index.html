@@ -5,9 +5,28 @@
   <title>Based File Converter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --bg: #f7f9fc;
+      --text: #333;
+      --subtext: #555;
+      --card: #fff;
+      --button-bg: #222;
+      --button-text: #fff;
+    }
+
+    body.dark {
+      --bg: #1e1e1e;
+      --text: #f0f0f0;
+      --subtext: #ccc;
+      --card: #2a2a2a;
+      --button-bg: #444;
+      --button-text: #fff;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f9fc;
+      background-color: var(--bg);
+      color: var(--text);
       margin: 0;
       padding: 0;
       display: flex;
@@ -17,7 +36,7 @@
     }
 
     .container {
-      background-color: #fff;
+      background-color: var(--card);
       padding: 40px;
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -29,64 +48,123 @@
     h1 {
       font-size: 2em;
       margin-bottom: 10px;
-      color: #333;
     }
 
     p.description {
       font-size: 1.1em;
-      color: #555;
+      color: var(--subtext);
       margin-bottom: 30px;
     }
 
     .download-button {
       font-size: 1.1em;
       padding: 12px 24px;
-      background-color: #222;
-      color: #fff;
+      background-color: var(--button-bg);
+      color: var(--button-text);
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
       text-decoration: none;
       display: inline-block;
+      margin-bottom: 30px;
     }
 
     .download-button:hover {
-      background-color: #444;
+      background-color: #666;
     }
 
     .footer {
-      margin-top: 40px;
-      color: #777;
+      margin-top: 30px;
       font-size: 0.95em;
     }
 
     .footer p {
       margin: 4px 0;
+      color: var(--subtext);
     }
 
-    .contact a {
-      color: #555;
-      text-decoration: none;
+    form {
+      margin-top: 30px;
+      text-align: left;
     }
 
-    .contact a:hover {
-      text-decoration: underline;
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      color: #000;
+    }
+
+    body.dark form input, body.dark form textarea {
+      background-color: #444;
+      border: 1px solid #666;
+      color: #fff;
+    }
+
+    form button {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #666;
+    }
+
+    .toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 2px solid var(--text);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <button class="toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
   <div class="container">
     <h1>Based File Converter</h1>
     <p class="description">A simple offline file converter for PDF, DOCX, MP3, MP4, images, and more.<br>No sketchiness. No nonsense.</p>
     <a class="download-button" href="https://drive.google.com/uc?export=download&id=1xFCBMQwXfnRngKzbO2-M8f7TofvQUxGn">
       Download v1.0
     </a>
+
+    <form action="https://formspree.io/f/xovwyweb" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="_replyto" placeholder="Your email" required>
+      <textarea name="message" placeholder="Your message" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
     <div class="footer">
       <p>made by forest</p>
       <p style="opacity: 0.8;">stay libre</p>
-      <p class="contact">contact: <a href="mailto:forestpc1@gmail.com">forestpc1@gmail.com</a></p>
     </div>
   </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    // Load theme on page load
+    window.onload = () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+      }
+    };
+  </script>
 </body>
 </html>
